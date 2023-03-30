@@ -22,8 +22,12 @@ def fetch_apod_data():
     data = response.json()
     return data
 
+def fetch_apod_data_date(date):
+    response = requests.get(f"{APOD_URL}?api_key={API_KEY}&date={date}")
+    data = response.json()
+    return data
+
 def display_apod(data):
-    st.write(data)
     st.image(data["url"], use_column_width=True)
     st.write(f"**Title:** {data['title']}")
     st.write(f"**Date:** {data['date']}")
@@ -33,12 +37,14 @@ def display_apod(data):
 apod_data = fetch_apod_data()
 display_apod(apod_data)
 
+today = pd.Timestamp.today().strftime("%Y-%m-%d")
+
 # Allow users to browse previous APODs
 st.sidebar.title("Browse APODs")
 selected_date = st.sidebar.date_input("Select date", pd.Timestamp.today())
 selected_date_str = selected_date.strftime("%Y-%m-%d")
 if selected_date_str != today:
-    apod_data = fetch_apod_data(selected_date_str)
+    apod_data = fetch_apod_data_date(selected_date_str)
     display_apod(apod_data)
 
 # Share on social media
