@@ -31,6 +31,7 @@ def display_apod(data):
 
 # Get today's APOD
 today = pd.Timestamp.today().strftime("%Y-%m-%d")
+st.write(today-1)
 apod_data = fetch_apod_data(today)
 display_apod(apod_data)
 
