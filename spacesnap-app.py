@@ -8,8 +8,10 @@ APOD_URL = "https://api.nasa.gov/planetary/apod"
 # API key
 API_KEY = "6x1BFJezktd34g2615qORdf3FfOpIo0g3NcTX2tZ"
 
-# Streamlit code to display the APOD and its information
-st.title("SpaceSnap: NASA Astronomy Picture of the Day")
+# Display the APOD and its information
+st.set_page_config(page_title="SpaceSnap: NASA Astronomy Picture of the Day")
+
+st.title("SpaceSnap: NASA Astronomy Picture of the Day 🔭")
 
 # Fetch APOD data
 def fetch_apod_data():
@@ -42,20 +44,6 @@ selected_date_str = selected_date.strftime("%Y-%m-%d")
 if selected_date_str != today:
     apod_data = fetch_apod_data_date(selected_date_str)
     display_apod(apod_data)
-
-# Share on social media
-st.sidebar.title("Share on social media")
-twitter_url = f"https://twitter.com/intent/tweet?url={apod_data['url']}&text={apod_data['title']}%0A{apod_data['explanation']}"
-st.sidebar.write(f"Twitter: [{apod_data['title']}]({twitter_url})")
-
-# Download image
-st.sidebar.title("Download image")
-file_type = st.sidebar.selectbox("Select file type", ["JPEG", "PNG"])
-if st.sidebar.button("Download image"):
-    response = requests.get(apod_data["url"])
-    with open(f"{apod_data['title']}.{file_type.lower()}", "wb") as f:
-        f.write(response.content)
-    st.sidebar.write("Image downloaded successfully!")
 
 # Random APOD generator
 st.sidebar.title("Random APOD")
