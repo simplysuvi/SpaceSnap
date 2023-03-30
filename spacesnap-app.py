@@ -11,11 +11,6 @@ API_KEY = "6x1BFJezktd34g2615qORdf3FfOpIo0g3NcTX2tZ"
 # Streamlit code to display the APOD and its information
 st.title("SpaceSnap: NASA Astronomy Picture of the Day")
 
-# User preferences
-st.sidebar.title("Preferences")
-user_dark_mode = st.sidebar.checkbox("Dark Mode", value=True)
-st.set_option('deprecation.showPyplotGlobalUse', False)
-
 # Fetch APOD data
 def fetch_apod_data():
     response = requests.get(f"{APOD_URL}?api_key={API_KEY}")
@@ -67,9 +62,3 @@ if st.sidebar.button("Show random APOD"):
     response = requests.get(f"{APOD_URL}?api_key={API_KEY}")
     data = response.json()
     display_apod(data)
-
-# Set user preferences
-if user_dark_mode:
-    st.set_theme("dark")
-else:
-    st.set_theme("default")
