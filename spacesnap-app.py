@@ -23,6 +23,7 @@ def fetch_apod_data_date(date):
     return data
 
 def display_apod(data):
+    st.title(data['title'])
     st.image(data["url"], use_column_width=True)
     st.write(f"**Title:** {data['title']}")
     st.write(f"**Date:** {data['date']}")
