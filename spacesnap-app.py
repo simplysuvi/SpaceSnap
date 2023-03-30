@@ -17,13 +17,13 @@ user_dark_mode = st.sidebar.checkbox("Dark Mode", value=True)
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Fetch APOD data
-@st.cache(show_spinner=False, suppress_st_warning=True)
 def fetch_apod_data(date):
     response = requests.get(f"{APOD_URL}?api_key={API_KEY}&date={date}")
     data = response.json()
     return data
 
 def display_apod(data):
+    st.write(data)
     st.image(data["url"], use_column_width=True)
     st.write(f"**Title:** {data['title']}")
     st.write(f"**Date:** {data['date']}")
