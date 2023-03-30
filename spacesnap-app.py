@@ -17,8 +17,8 @@ user_dark_mode = st.sidebar.checkbox("Dark Mode", value=True)
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Fetch APOD data
-def fetch_apod_data(date):
-    response = requests.get(f"{APOD_URL}?api_key={API_KEY}&date={date}")
+def fetch_apod_data():
+    response = requests.get(f"{APOD_URL}?api_key={API_KEY}")
     data = response.json()
     return data
 
@@ -29,10 +29,8 @@ def display_apod(data):
     st.write(f"**Date:** {data['date']}")
     st.write(f"**Explanation:** \n\n{data['explanation']}")
 
-# Get today's APOD
-today = pd.Timestamp.today().strftime("%Y-%m-%d")
-st.write(today-1)
-apod_data = fetch_apod_data(today)
+# Get APOD
+apod_data = fetch_apod_data()
 display_apod(apod_data)
 
 # Allow users to browse previous APODs
