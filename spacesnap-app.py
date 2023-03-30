@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import streamlit as st
+import random
 
 # NASA APOD API URL
 APOD_URL = "https://api.nasa.gov/planetary/apod"
@@ -45,9 +46,17 @@ if selected_date_str != today:
     apod_data = fetch_apod_data_date(selected_date_str)
     display_apod(apod_data)
 
+import random
+
 # Random APOD generator
 st.sidebar.title("Random APOD")
 if st.sidebar.button("Show random APOD"):
-    response = requests.get(f"{APOD_URL}?api_key={API_KEY}")
-    data = response.json()
-    display_apod(data)
+    # Generate a random date between June 16, 1995 (APOD launch date) and today
+    start_date = pd.to_datetime("1995-06-16")
+    end_date = pd.Timestamp.today()
+    random_date = pd.to_datetime(random.randint(start_date.value, end_date.value))
+    random_date_str = random_date.strftime("%Y-%m-%d")
+
+    # Fetch and display the APOD for the random date
+    apod_data = fetch_apod_data_date(random_date_str)
+    display_apod(apod_data)
