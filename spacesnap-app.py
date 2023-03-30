@@ -20,4 +20,4 @@ with st.spinner("Loading APOD..."):
     # Display the APOD information
     st.write(f"Date: {data['date']}")
     st.write(f"Title: {data['title']}")
-    st.write(f"Explanation: \n\n {data['explanation']}")
+    st.write(f"Explanation: \n {data['explanation']}")
